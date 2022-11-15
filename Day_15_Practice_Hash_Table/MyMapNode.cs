@@ -8,8 +8,8 @@ namespace Day_15_Practice_Hash_Table
 {
     public class MyMapNode<K, V>
     {
-        private readonly int size;
-        private readonly LinkedList<KeyValue<K, V>>[] items;
+        private  int size;
+        private  LinkedList<KeyValue<K, V>>[] items;
 
         public MyMapNode(int size)
         {
@@ -45,6 +45,27 @@ namespace Day_15_Practice_Hash_Table
             KeyValue<K, V> item = new KeyValue<K, V>() { Key = key, Value = value };
             linkedList.AddLast(item);
             Console.WriteLine(key + " is Added to Hash Table : " + value);
+        }
+
+        public void Remove(K key)
+        {
+            int position = GetArrayPosition(key);
+            LinkedList<KeyValue<K, V>> linkedList = GetLinkedList(position);
+            bool itemFound = false;
+            KeyValue<K, V> foundItem = default(KeyValue<K, V>);
+            foreach (KeyValue<K, V> item in linkedList)
+            {
+                if (item.Key.Equals(key))
+                {
+                    itemFound = true;
+                    foundItem = item;
+                }
+            }
+
+            if (itemFound)
+            {
+                linkedList.Remove(foundItem);
+            }
         }
 
         protected LinkedList<KeyValue<K, V>> GetLinkedList(int position)
